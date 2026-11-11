@@ -1,106 +1,171 @@
-\# Development Log — Basic Network Sniffer
+# Development Log — Basic Network Sniffer
 
+## Day 1 — November 10, 2026
 
+### Objectives
+- Configure the Python development environment.
+- Install and verify Scapy.
+- Understand network packet fundamentals.
+- Research packet capture and networking protocols.
+- Document the project architecture.
+- Initialize GitHub version control.
 
-\## Day 1 — November 10, 2026
+### Completed
+- [x] Verified Python 3.11.9.
+- [x] Created and activated Python virtual environment.
+- [x] Installed Scapy 2.8.0.
+- [x] Verified required Scapy imports.
+- [x] Created project directory structure.
+- [x] Prepared network research documentation.
+- [x] Created initial system architecture documentation.
+- [x] Initialized local Git repository.
+- [x] Created `.gitignore` and excluded `.venv/`.
+- [x] Created GitHub repository.
+- [x] Committed and pushed initial research documentation.
 
+### Challenges
+- Python launcher (`py`) unavailable; used `python` successfully.
+- Project initially created in Windows System32; relocated to Documents.
+- Markdown formatting and encoding issues encountered while using Notepad; resolved by editing in VS Code.
 
+### Technical Learning
+- Ethernet and IPv4 packet structure.
+- TCP, UDP and ICMP fundamentals.
+- Scapy packet capture capabilities.
+- Npcap's role in Windows packet capture.
+- Basic Git initialization, staging, committing and pushing.
 
-\### Objectives
+### Pending
+- Final review and commit of architecture documentation.
+- Implement live packet capture engine.
+- Implement packet analysis and display.
+- Implement filtering, logging and statistics.
 
+### Next Session — November 11
+- Finalize and push Day 1 documentation.
+- Implement the initial Scapy capture engine.
+- Test packet capture on an authorized network interface.
 
-
-\- Configure the Python development environment.
-
-\- Install and verify Scapy.
-
-\- Understand network packet fundamentals.
-
-\- Research packet capture and networking protocols.
-
-\- Document project architecture.
-
-
-
-\### Completed
-
-
-
-\- \[ ] Verified Python 3.11.9.
-
-\- \[ ] Created and activated Python virtual environment.
-
-\- \[ ] Installed Scapy 2.8.0.
-
-\- \[ ] Verified required Scapy imports.
-
-\- \[ ] Created project directory structure.
-
-\- \[ ] Completed and reviewed network research.
-
-\- \[ ] Created architecture documentation.
-
-\- \[ ] Captured setup evidence.
-
-
-
-\### Challenges
-
-
-
-\- Python launcher (`py`) unavailable; used `python` successfully.
-
-\- Project initially created in Windows System32; relocated to Documents.
-
-
-
-\### Technical Learning
-
-
-
-\- Ethernet and IPv4 packet structure.
-
-\- TCP, UDP and ICMP fundamentals.
-
-\- Scapy packet capture capabilities.
-
-\- Npcap's role in Windows packet capture.
-
-
-
-\### Pending
-
-
-
-\- Implement live packet capture engine.
-
-\- Implement packet analysis and display.
-
-
-
-\### Next Session — November 11
-
-
-
-\- Finalize any outstanding documentation.
-
-\- Implement the initial Scapy capture engine.
-
-\- Test packet capture on an authorized network interface.
-
-
-
-\### Status
-
-
-
+### Status
 Environment setup: Complete
-
-Research documentation: Pending verification
-
-Architecture documentation: Pending verification
-
+Research documentation: Committed and pushed
+Architecture documentation: Draft created, pending review and commit
+GitHub repository: Created and connected
 Packet capture engine: Not started
 
 
 
+---
+
+## Day 2 — November 11, 2026
+
+### Objectives
+- Identify the active network interface.
+- Verify live packet capture using Scapy and Npcap.
+- Implement the packet capture engine.
+- Extract packet metadata.
+- Implement protocol and IPv4 filtering.
+- Implement CSV logging and protocol statistics.
+- Perform functional testing.
+
+### Completed
+
+- [x] Verified Python virtual environment and Scapy installation.
+- [x] Verified Npcap service was running.
+- [x] Identified the active MediaTek Wi-Fi interface.
+- [x] Successfully captured live network packets.
+- [x] Implemented the Scapy-based packet capture engine.
+- [x] Extracted source and destination IP addresses.
+- [x] Identified TCP, UDP, ICMP, ARP and IGMP traffic.
+- [x] Extracted TCP/UDP port information.
+- [x] Implemented TCP flag identification.
+- [x] Implemented configurable packet-count and timeout controls.
+- [x] Implemented protocol-based filtering.
+- [x] Implemented IPv4 address-based filtering.
+- [x] Implemented CSV metadata logging.
+- [x] Implemented protocol distribution statistics.
+- [x] Added command-line input validation.
+- [x] Added an explicit interface-selection requirement.
+- [x] Excluded local packet logs from Git version control.
+
+### Testing Performed
+
+- Captured more than 1,400 live packets in an initial capture session.
+- Verified a 20-packet capture limit.
+- Verified ICMP Echo Request and Echo Reply identification.
+- Verified CSV logging with 30 packet records.
+- Verified TCP filtering with 10 TCP records.
+- Verified combined ICMP and IPv4 filtering with 10 matching records.
+- Verified that zero unrelated IP records were present in the ICMP CSV.
+- Verified UDP filtering with 16 UDP records.
+- Verified rejection of an unsupported protocol.
+- Verified rejection of an invalid IPv4 address.
+- Verified a final TCP regression capture with five packets.
+
+### Problems Encountered
+
+- VS Code initially opened Command Prompt instead of PowerShell.
+- The Python virtual environment was not initially active in the terminal.
+- Encountered Windows file permission issues while creating the source file.
+- Identified and corrected the Markdown editing workflow by switching from Notepad to VS Code.
+- Discovered that the network interface index should be explicitly selected rather than assumed.
+
+### Skills and Knowledge Acquired
+
+- Practical use of Scapy's `sniff()` function.
+- Network interface discovery and selection.
+- Packet processing using Scapy layers.
+- TCP, UDP, ICMP, ARP and IGMP identification.
+- Berkeley Packet Filter (BPF) capture filters.
+- Python CSV logging.
+- Command-line argument validation using argparse.
+- Protocol statistics using collections.Counter.
+- Git staging, commits and repository hygiene.
+
+### Evidence Produced
+
+- Live packet capture output.
+- Successful 20-packet capture test.
+- ICMP request/reply capture output.
+- TCP filtering output.
+- UDP filtering output.
+- CSV metadata files.
+- Verified CSV records and protocol distributions.
+- Invalid protocol and IPv4 input validation output.
+- Final regression test output.
+
+### Pending
+
+- Automated unit tests for packet analysis.
+- Further edge-case and error-handling tests.
+- Final README and architecture documentation review.
+- Redacted evidence organization.
+- Day 2 GitHub commit and push.
+
+### Next Session — November 12
+
+- Implement automated packet-analysis tests.
+- Validate error handling and edge cases.
+- Review source code.
+- Finalize technical documentation.
+- Organize project evidence and prepare the next development milestone.
+
+### Status
+
+Environment: Verified
+
+Live packet capture: Implemented and tested
+
+Packet analysis: Implemented and manually tested
+
+Filtering: Implemented and manually tested
+
+CSV logging: Implemented and tested
+
+Statistics: Implemented and observed in tests
+
+Automated testing: Pending
+
+GitHub Day 2 submission: Pending
+
+Focused work duration: To be recorded accurately at session close
