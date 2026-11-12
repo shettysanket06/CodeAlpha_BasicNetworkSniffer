@@ -1,81 +1,102 @@
-﻿# Basic Network Sniffer — Testing Report
+﻿# Basic Network Sniffer - Testing Report
 
 **Project:** Basic Network Sniffer
-**Testing date:** November 11, 2026
+**Testing period:** November 11-12, 2026
 **Environment:** Windows 11, Python 3.11.9, Scapy 2.8.0, Npcap
 
 ## 1. Testing Overview
 
-Functional testing was performed using live network traffic on the selected Wi-Fi interface and controlled traffic generated through ping and DNS queries.
+The application was tested through live network captures, controlled network traffic, CSV inspection, command-line validation and automated unit tests.
 
-The tests focused on packet capture, protocol identification, metadata extraction, filtering, CSV logging, capture limits and command-line input validation.
+Testing covered packet capture, protocol identification, metadata extraction, filtering, logging, statistics, invalid inputs and exception handling.
 
-## 2. Test Results
+## 2. Live Functional Testing
 
-| Test ID | Test Description | Expected Result | Actual Result | Status |
-|---|---|---|---|---|
-| T01 | Live packet capture | Capture and display packets | Live packets captured successfully | PASS |
-| T02 | Packet-count limit | Stop after 20 packets | Exactly 20 packets processed | PASS |
-| T03 | TCP identification | Identify TCP traffic | TCP correctly identified | PASS |
-| T04 | UDP identification | Identify UDP traffic | UDP correctly identified | PASS |
-| T05 | ICMP identification | Identify ICMP traffic | Echo Request and Echo Reply identified | PASS |
-| T06 | ARP identification | Identify ARP traffic | ARP packets observed and identified | PASS |
-| T07 | Port extraction | Extract TCP/UDP ports | Port values displayed correctly | PASS |
-| T08 | TCP flag extraction | Identify TCP flags | Flags such as A, PA and S displayed | PASS |
-| T09 | CSV logging | Save packet metadata | CSV file created and records imported successfully | PASS |
-| T10 | TCP filtering | Capture only TCP | 10 TCP packets captured | PASS |
-| T11 | UDP filtering | Capture only UDP | 16 UDP packets captured | PASS |
-| T12 | ICMP and IP filtering | Capture matching ICMP traffic involving 1.1.1.1 | 10 matching packets captured | PASS |
-| T13 | CSV protocol verification | Confirm saved protocol values | TCP, UDP and ICMP records verified | PASS |
-| T14 | Invalid protocol input | Reject unsupported protocol GRE | Argument validation rejected GRE | PASS |
-| T15 | Invalid IPv4 input | Reject invalid IP address | Argument validation rejected invalid IP | PASS |
-| T16 | Final TCP regression | Capture five TCP packets | Exactly five TCP packets processed | PASS |
-| T17 | Explicit interface argument | Require interface selection | Help output showed interface argument as required | PASS |
+| Test ID | Test Description | Actual Result | Status |
+|---|---|---|---|
+| T01 | Live packet capture | Approximately 1,455 packets processed in an initial capture | PASS |
+| T02 | Packet-count limit | Exactly 20 packets processed | PASS |
+| T03 | TCP identification | TCP correctly identified | PASS |
+| T04 | UDP identification | UDP correctly identified | PASS |
+| T05 | ICMP identification | Echo Request and Echo Reply identified | PASS |
+| T06 | ARP identification | ARP traffic observed and identified | PASS |
+| T07 | Port extraction | TCP and UDP ports extracted | PASS |
+| T08 | TCP flag extraction | Flags such as A, PA and S identified | PASS |
+| T09 | CSV logging | Metadata successfully written to CSV | PASS |
+| T10 | TCP filtering | 10 TCP packets captured | PASS |
+| T11 | UDP filtering | 16 UDP packets captured | PASS |
+| T12 | Combined ICMP and IP filtering | 10 matching ICMP packets involving 1.1.1.1 | PASS |
+| T13 | Final TCP regression | Exactly five TCP packets processed | PASS |
 
 ## 3. CSV Logging Verification
 
 The following CSV outputs were inspected:
 
-- General packet capture: 30 records
-- TCP-filtered capture: 10 records
-- ICMP-filtered capture: 10 records
-- UDP-filtered capture: 16 records
+- General capture: 30 records
+- TCP capture: 10 records
+- ICMP capture: 10 records
+- UDP capture: 16 records
 
-The records contained the expected metadata fields:
+The CSV files contained timestamp, protocol, source IP, destination IP, source port, destination port, TCP flags, source MAC and destination MAC.
 
-- Timestamp
-- Protocol
-- Source IP
-- Destination IP
-- Source port
-- Destination port
-- TCP flags
-- Source MAC
-- Destination MAC
+The ICMP CSV validation found zero records unrelated to the specified IPv4 address.
 
-The ICMP CSV verification found zero records unrelated to the specified IPv4 address.
+## 4. Automated Unit Testing
 
-## 4. Additional Observations
+Automated tests were implemented in tests/test_sniffer.py using Python's unittest framework.
 
-- An initial timed capture processed 1,455 packets.
-- UDP traffic included DNS traffic on port 53 and SSDP traffic on port 1900.
-- TCP traffic included connections using port 443.
-- No packet payload contents were intentionally displayed or stored by the application.
+| Test ID | Test Description | Result |
+|---|---|---|
+| U01 | TCP packet metadata extraction | PASS |
+| U02 | UDP packet metadata extraction | PASS |
+| U03 | ICMP packet metadata extraction | PASS |
+| U04 | ARP packet metadata extraction | PASS |
+| U05 | IGMP identification | PASS |
+| U06 | Payload absence from extracted metadata | PASS |
 
-## 5. Tests Pending
+**Final automated test result: 6/6 PASSED**
 
-The following tests have not yet been completed:
+The six tests were executed again after the network interface error-handling correction. All six passed.
 
-- Automated unit tests for TCP, UDP, ICMP, ARP and IGMP packet analysis.
-- Dedicated IGMP identification test.
-- Dedicated ARP filtering test.
-- Runtime capture-failure exit-code verification.
-- Additional invalid interface and output-file error tests.
+## 5. Error Handling and Input Validation
 
-These are planned for the next quality-assurance session.
+| Test ID | Scenario | Expected Behaviour | Result |
+|---|---|---|---|
+| E01 | Missing interface argument | Reject command with exit code 2 | PASS |
+| E02 | Negative packet count | Reject invalid value with exit code 2 | PASS |
+| E03 | Count and timeout both zero | Reject unlimited capture with exit code 2 | PASS |
+| E04 | Unknown interface index | Display clean error with exit code 2 | PASS |
+| E05 | Invalid CSV output destination | Display capture error with exit code 1 | PASS |
+| E06 | Unsupported protocol GRE | Reject unsupported protocol | PASS |
+| E07 | Invalid IPv4 address | Reject invalid address | PASS |
 
-## 6. Conclusion
+The unknown interface test initially exposed an unhandled ValueError from Scapy's interface lookup. This was corrected by catching the exception and reporting a clean command-line error.
 
-The application has successfully demonstrated live network packet capture, metadata extraction, TCP/UDP/ICMP/ARP identification, protocol and IPv4 filtering, CSV logging, protocol statistics and command-line argument validation.
+The corrected implementation was retested successfully.
 
-Further automated testing and edge-case validation are required before final project submission.
+## 6. Privacy and Security Checks
+
+- Packet payload contents are not intentionally displayed or stored.
+- Extracted metadata is written to CSV.
+- Local packet capture logs are excluded from Git version control.
+- Screenshots containing actual network addresses should be redacted before public release.
+
+The automated payload test verifies that the metadata returned by process_packet() does not contain a payload field or the synthetic test payload string.
+
+## 7. Additional Tests Recommended
+
+The following tests remain recommended:
+
+- Dedicated automated tests for ARP filtering.
+- Additional output-file and directory permission scenarios.
+- Interface availability and capture initialization failure scenarios.
+- Automated tests for CSV writer behaviour.
+- Broader regression testing of all supported capture options.
+
+## 8. Conclusion
+
+The Basic Network Sniffer has successfully demonstrated live network packet capture, protocol identification, metadata extraction, protocol and IPv4 filtering, CSV logging and protocol statistics.
+
+Six automated packet-analysis tests passed. Seven error-handling and input-validation scenarios were verified.
+
+The application has passed its current functional and initial quality-assurance tests. Additional regression and edge-case testing is recommended before final project submission.

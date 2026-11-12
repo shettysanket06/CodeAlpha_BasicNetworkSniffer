@@ -149,11 +149,11 @@ def main():
     )
 
     parser.add_argument(
-    "--iface-index",
-    type=non_negative_int,
-    required=True,
-    help="Scapy network interface index",
-)
+        "--iface-index",
+        type=non_negative_int,
+        required=True,
+        help="Scapy network interface index",
+    )
 
     parser.add_argument(
         "--count",
@@ -190,18 +190,26 @@ def main():
 
     args = parser.parse_args()
 
+    # Prevent an unlimited capture.
     if args.count == 0 and args.timeout == 0:
         parser.error(
             "Specify a packet count or timeout to stop capture."
         )
 
-    interface = conf.ifaces.dev_from_index(
-        args.iface_index
-    )
+    # Retrieve the selected network interface safely.
+    try:
+        interface = conf.ifaces.dev_from_index(
+            args.iface_index
+        )
+
+    except ValueError:
+        parser.error(
+            f"Unknown network interface index: {args.iface_index}"
+        )
 
     if interface is None:
         parser.error(
-            f"No interface found with index {args.iface_index}."
+            f"No network interface found with index {args.iface_index}."
         )
 
     # Construct the BPF capture filter.
@@ -216,7 +224,6 @@ def main():
     capture_filter = " and ".join(filter_parts) or None
 
     log_path = Path(args.log_file)
-    log_path.parent.mkdir(parents=True, exist_ok=True)
 
     packet_counter = 0
     protocol_counter = Counter()
@@ -234,6 +241,12 @@ def main():
     print("=" * 55)
 
     try:
+        # Create the output directory if necessary.
+        log_path.parent.mkdir(
+            parents=True,
+            exist_ok=True
+        )
+
         with log_path.open(
             "a",
             newline="",
@@ -281,7 +294,7 @@ def main():
 
     except Exception as error:
         print(f"\nCapture failed: {error}")
-        raise SystemExit(1)
+        raise SystemExit(1) from error
 
     # Display capture statistics.
     print("\n" + "=" * 55)

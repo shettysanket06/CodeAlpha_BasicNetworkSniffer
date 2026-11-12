@@ -169,3 +169,113 @@ Automated testing: Pending
 GitHub Day 2 submission: Pending
 
 Focused work duration: To be recorded accurately at session close
+---
+
+## Day 3 - November 12, 2026
+
+### Objectives
+- Implement automated unit tests for packet analysis.
+- Validate application error handling.
+- Identify and fix issues in network interface selection.
+- Perform regression testing after code corrections.
+- Improve application reliability.
+
+### Completed
+
+- [x] Inspected the GitHub repository and verified tracked project files.
+- [x] Created the automated test suite at tests/test_sniffer.py.
+- [x] Implemented six automated unit tests using Python unittest.
+- [x] Tested TCP packet analysis.
+- [x] Tested UDP packet analysis.
+- [x] Tested ICMP packet analysis.
+- [x] Tested ARP packet analysis.
+- [x] Tested IGMP identification.
+- [x] Tested that packet payload contents are not included in extracted metadata.
+- [x] Successfully executed all six automated tests.
+- [x] Tested rejection of a missing network interface argument.
+- [x] Tested rejection of negative packet counts.
+- [x] Tested rejection of unlimited capture when both count and timeout are zero.
+- [x] Identified an unhandled ValueError when an invalid network interface index was supplied.
+- [x] Corrected invalid network interface handling.
+- [x] Verified that an invalid interface now produces a clean command-line error.
+- [x] Tested invalid CSV output destination handling.
+- [x] Verified non-zero exit codes for application errors.
+- [x] Re-ran all six automated unit tests after the source-code correction.
+- [x] Performed a five-packet TCP regression capture.
+- [x] Verified Python syntax compilation.
+
+### Testing Results
+
+Automated unit tests: 6/6 PASSED
+
+Error-handling scenarios: 5/5 PASSED
+
+Updated-source regression capture: PASSED
+
+Python compilation: PASSED
+
+### Problems Encountered
+
+- Scapy raised a ValueError when an unknown network interface index was supplied instead of returning a missing interface object.
+- The original implementation did not handle this exception, resulting in an unhandled traceback.
+- Corrected the issue by catching ValueError and reporting the invalid interface through argparse.
+- Initial testing demonstrated the importance of checking application exit codes and verifying error handling separately from normal packet capture.
+
+### Skills and Knowledge Acquired
+
+- Learned to create automated unit tests using Python's unittest framework.
+- Practised constructing synthetic network packets using Scapy.
+- Improved understanding of TCP, UDP, ICMP, ARP and IGMP packet structures.
+- Learned to use assertions to validate extracted packet metadata.
+- Understood the difference between unit testing and live network integration testing.
+- Improved exception handling in Python applications.
+- Learned to handle Scapy network interface lookup errors.
+- Practised validating command-line application exit codes.
+- Performed regression testing after modifying application source code.
+- Improved debugging and software quality-assurance skills.
+
+### Evidence Produced
+
+- Created tests/test_sniffer.py containing six automated unit tests.
+- Successfully executed all six tests with Python unittest.
+- Recorded successful TCP, UDP, ICMP, ARP and IGMP packet analysis tests.
+- Recorded successful payload metadata privacy test.
+- Captured invalid interface error output after correcting the exception handling.
+- Verified rejection of missing interface, negative packet count and unlimited capture arguments.
+- Verified invalid CSV output destination handling with exit code 1.
+- Verified invalid interface handling with exit code 2.
+- Successfully compiled the updated sniffer.py file.
+- Successfully performed a final TCP capture processing exactly five packets.
+
+### Pending
+
+- Additional regression testing for ARP filtering and CSV edge cases.
+- Final source-code review.
+- Final documentation and README review.
+- Organize and redact project evidence screenshots.
+- Commit and push the latest Day 3 source code, automated tests and documentation updates.
+- Prepare the CodeAlpha project demonstration and submission.
+
+### Next Session
+
+- Complete remaining regression tests.
+- Review source-code quality and edge cases.
+- Finalize project documentation.
+- Verify the GitHub repository and submission evidence.
+
+### Status
+
+Automated unit testing: Complete - 6/6 passed
+
+Error handling: Complete - 5/5 scenarios passed
+
+Invalid interface handling: Corrected and verified
+
+Regression testing: Partially complete
+
+Documentation: Updated work pending verification
+
+GitHub Day 3 commit: Pending
+
+Focused working hours: To be recorded from the actual timesheet.
+
