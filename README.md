@@ -41,9 +41,11 @@ CodeAlpha_BasicNetworkSniffer/
 │   ├── architecture.md
 │   └── testing_report.md
 │
+├── tests/
+│   └── test_sniffer.py
+│
 ├── logs/                   # Local logs; excluded from Git
 ├── screenshots/            # Project evidence
-├── tests/                  # Automated tests (planned)
 │
 ├── .gitignore
 ├── DAILY_LOG.md
@@ -143,9 +145,10 @@ At least one capture stopping condition must be configured: packet count or time
 
 Use `--help` to view available options.
 
+
 ## CSV Output
 
-The application records the following metadata:
+The application records the following packet metadata:
 
 - Timestamp
 - Protocol
@@ -157,11 +160,13 @@ The application records the following metadata:
 - Source MAC
 - Destination MAC
 
+CSV logging uses append mode. When an existing CSV file is specified, new packet records are added to it rather than overwriting previous records. The header is written only when the file is empty.
+
 Packet payload contents are not displayed or stored by default.
 
 ## Testing and Validation
 
-Manual functional testing performed so far includes:
+Manual functional and integration testing includes:
 
 | Test | Result |
 |---|---|
@@ -172,14 +177,22 @@ Manual functional testing performed so far includes:
 | ARP identification | Observed successfully |
 | Packet-count limit | Passed |
 | CSV metadata logging | Passed |
+| CSV row-count verification | Passed |
 | Combined ICMP and IPv4 filtering | Passed |
+| Filtered CSV verification | Passed |
+| Five-second timeout capture | Passed |
+| CSV append behaviour and header handling | Passed |
 | Invalid protocol validation | Passed |
 | Invalid IPv4 validation | Passed |
-| Protocol distribution statistics | Verified in captures |
+| Protocol distribution statistics | Verified |
 
-Automated unit testing is planned.
+Automated unit testing:
 
-Detailed test results will be documented in `docs/testing_report.md`.
+- 6 unit tests passed.
+- TCP, UDP, ICMP, ARP and IGMP packet identification tested.
+- Packet payload privacy tested.
+
+Detailed test results are documented in `docs/testing_report.md`.
 
 ## Security and Privacy
 
