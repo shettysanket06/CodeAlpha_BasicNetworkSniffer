@@ -3,6 +3,7 @@
 ## Day 1 — November 10, 2026
 
 ### Objectives
+
 - Configure the Python development environment.
 - Install and verify Scapy.
 - Understand network packet fundamentals.
@@ -11,6 +12,7 @@
 - Initialize GitHub version control.
 
 ### Completed
+
 - [x] Verified Python 3.11.9.
 - [x] Created and activated Python virtual environment.
 - [x] Installed Scapy 2.8.0.
@@ -24,11 +26,13 @@
 - [x] Committed and pushed initial research documentation.
 
 ### Challenges
+
 - Python launcher (`py`) unavailable; used `python` successfully.
 - Project initially created in Windows System32; relocated to Documents.
 - Markdown formatting and encoding issues encountered while using Notepad; resolved by editing in VS Code.
 
 ### Technical Learning
+
 - Ethernet and IPv4 packet structure.
 - TCP, UDP and ICMP fundamentals.
 - Scapy packet capture capabilities.
@@ -36,30 +40,36 @@
 - Basic Git initialization, staging, committing and pushing.
 
 ### Pending
+
 - Final review and commit of architecture documentation.
 - Implement live packet capture engine.
 - Implement packet analysis and display.
 - Implement filtering, logging and statistics.
 
 ### Next Session — November 11
+
 - Finalize and push Day 1 documentation.
 - Implement the initial Scapy capture engine.
 - Test packet capture on an authorized network interface.
 
 ### Status
+
 Environment setup: Complete
+
 Research documentation: Committed and pushed
-Architecture documentation: Draft created, pending review and commit
+
+Architecture documentation: Completed and pushed in commit c7ee929
+
 GitHub repository: Created and connected
+
 Packet capture engine: Not started
-
-
 
 ---
 
 ## Day 2 — November 11, 2026
 
 ### Objectives
+
 - Identify the active network interface.
 - Verify live packet capture using Scapy and Npcap.
 - Implement the packet capture engine.
@@ -164,16 +174,18 @@ CSV logging: Implemented and tested
 
 Statistics: Implemented and observed in tests
 
-Automated testing: Pending
+Automated testing: Pending at end of Day 2; completed on Day 3 (6/6 passed)
 
-GitHub Day 2 submission: Pending
+GitHub Day 2 submission: Complete - implementation and documentation pushed
 
 Focused work duration: To be recorded accurately at session close
+
 ---
 
 ## Day 3 - November 12, 2026
 
 ### Objectives
+
 - Implement automated unit tests for packet analysis.
 - Validate application error handling.
 - Identify and fix issues in network interface selection.
@@ -247,14 +259,14 @@ Python compilation: PASSED
 - Successfully compiled the updated sniffer.py file.
 - Successfully performed a final TCP capture processing exactly five packets.
 
-### Pending
+### Follow-up Status (updated November 14, 2026)
 
-- Additional regression testing for ARP filtering and CSV edge cases.
-- Final source-code review.
-- Final documentation and README review.
-- Organize and redact project evidence screenshots.
-- Commit and push the latest Day 3 source code, automated tests and documentation updates.
-- Prepare the CodeAlpha project demonstration and submission.
+- [x] Manual ARP filtering and CSV append-mode edge cases tested on November 13–14.
+- [x] Final source-code review completed on November 14.
+- [x] Final documentation and README review completed on November 14.
+- [x] Day 3 source code, automated tests and documentation committed and pushed (commit `9c0e901`).
+- [ ] Organize and redact project evidence screenshots.
+- [ ] Prepare and record the CodeAlpha project demonstration video.
 
 ### Next Session
 
@@ -271,14 +283,13 @@ Error handling: Complete - 5/5 scenarios passed
 
 Invalid interface handling: Corrected and verified
 
-Regression testing: Partially complete
+Regression testing: Expanded through Day 4–5; additional automated edge-case tests remain recommended
 
-Documentation: Updated work pending verification
+Documentation: Updated and pushed
 
-GitHub Day 3 commit: Pending
+GitHub Day 3 commit: Complete - commit `9c0e901` pushed successfully
 
 Focused working hours: To be recorded from the actual timesheet.
-
 
 ---
 
@@ -369,20 +380,23 @@ CSV append-mode and header verification: PASSED
 
 All generated CSV files contain real network metadata and remain local. They must not be uploaded publicly without appropriate redaction.
 
-## Pending
+## Follow-up Status (updated November 14, 2026)
 
-- Final source-code review.
-- Final documentation review.
-- Organize and redact demonstration screenshots.
-- Inspect the final Git diff.
-- Commit and push the Day 4 documentation updates.
-- Prepare the CodeAlpha project demonstration and submission.
+- [x] Final source-code review completed on November 14.
+- [x] Final documentation review completed on November 14.
+- [x] Final Git diff inspected on November 14.
+- [x] Day 4 documentation committed and pushed (commit `061d86e`).
+- [ ] Organize and redact demonstration screenshots.
+- [ ] Prepare and record the CodeAlpha project demonstration video.
 
 ## Working Hours
 
 Start time: To be recorded
+
 End time: To be recorded
+
 Break duration: To be recorded
+
 Actual focused working hours: To be calculated from the actual timesheet.
 
 ## Status
@@ -395,6 +409,123 @@ Timeout testing: Complete
 
 CSV append-mode verification: Complete
 
-README update: Completed locally
+README update: Completed and pushed
 
-Testing report and daily log: Updated locally; pending final verification and GitHub push.
+Testing report and daily log: Completed and pushed
+
+GitHub Day 4 commit: Complete - `061d86e`
+
+---
+
+# Day 5 — November 14, 2026
+
+## Objectives
+
+- Perform final quality-assurance testing.
+- Verify ARP protocol filtering.
+- Test simulated capture initialization failure handling.
+- Review source code and project documentation.
+- Update testing documentation.
+- Prepare the project for final demonstration and submission.
+
+## Completed
+
+- [x] Verified Git working tree and synchronization with origin/main.
+- [x] Corrected local Git author identity for future commits.
+- [x] Re-executed all six automated unit tests successfully.
+- [x] Verified Python syntax compilation for source and test files.
+- [x] Performed live ARP protocol filtering using Scapy.
+- [x] Captured six ARP packets during the filtered capture.
+- [x] Verified all six CSV records were identified as ARP.
+- [x] Confirmed zero non-ARP records in the ARP-filtered CSV.
+- [x] Sent a separate Scapy ARP request to the local gateway and received one reply.
+- [x] Tested simulated capture initialization failure using a controlled OSError.
+- [x] Verified the application displayed a clean capture error.
+- [x] Verified the simulated failure returned exit code 1.
+- [x] Reviewed src/sniffer.py and tests/test_sniffer.py.
+- [x] Updated docs/architecture.md with current implementation status and limitations.
+- [x] Updated docs/testing_report.md with Day 5 quality-assurance results.
+- [x] Updated README.md with ARP filtering and simulated failure testing.
+- [x] Verified README formatting and corrected a duplicate section heading.
+- [x] Corrected trailing whitespace in the testing report.
+
+## Testing Results
+
+Automated unit tests: 6/6 PASSED
+
+Python compilation: PASSED
+
+ARP filtering: PASSED - 6 ARP records
+
+ARP CSV verification: PASSED
+
+Simulated capture initialization failure: PASSED
+
+Expected failure exit code: 1
+
+Source-code review: COMPLETED
+
+Documentation review: COMPLETED
+
+## Problems Encountered
+
+- Initial documentation updates contained a duplicate README heading, which was corrected.
+- The testing report contained trailing whitespace, which was removed.
+- Git displayed a Windows LF-to-CRLF line-ending warning, which did not affect the content or staged diff validation.
+- The separate gateway ARP request was sent after the capture session had ended; therefore, it was not counted among the six captured packets.
+
+## Skills and Knowledge Acquired
+
+- Improved understanding of ARP filtering and local network address resolution.
+- Practised generating ARP requests using Scapy.
+- Learned to validate filtered packet captures through CSV inspection.
+- Improved understanding of Python exception handling through controlled failure simulation.
+- Practised verifying application exit codes.
+- Improved source-code review and technical documentation skills.
+- Learned to distinguish simulated failure testing from actual hardware or driver failure testing.
+- Improved understanding of Git identity and commit attribution.
+
+## Evidence Produced
+
+- logs/day5_arp_filter_test.csv
+- Six verified ARP packet records.
+- Scapy gateway ARP request and reply output.
+- Simulated capture initialization failure output.
+- Updated README.md.
+- Updated docs/architecture.md.
+- Updated docs/testing_report.md.
+- Updated DAILY_LOG.md.
+
+## Pending
+
+- Organize and redact demonstration screenshots.
+- Prepare the explanation video script.
+- Record the project explanation and live demonstration video.
+- Perform the final GitHub repository audit.
+- Complete the CodeAlpha project submission requirements.
+
+## Working Hours
+
+Start time: To be recorded
+
+End time: To be recorded
+
+Break duration: To be recorded
+
+Actual focused working hours: To be calculated from the actual timesheet.
+
+## Status
+
+Final source-code review: Completed
+
+ARP filtering: Passed
+
+Simulated failure handling: Passed
+
+Automated regression tests: 6/6 passed
+
+Documentation review: Completed
+
+Explanation video: Pending
+
+Final project submission: Pending

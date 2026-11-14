@@ -160,25 +160,29 @@ The statistics module updates protocol counts and generates the final capture su
 
 | Component | Status |
 |---|---|
-| Command-line interface | Implemented |
-| Network interface selection | Implemented |
-| Live packet capture | Implemented |
-| BPF protocol filtering | Implemented |
-| IPv4 address filtering | Implemented |
-| Packet metadata extraction | Implemented |
-| Terminal output | Implemented |
-| CSV metadata logging | Implemented |
-| Protocol statistics | Implemented |
-| Manual functional testing | Performed |
-| Automated unit testing | Pending |
+| Command-line interface | Implemented and tested |
+| Network interface selection | Implemented and tested |
+| Live packet capture | Implemented and tested |
+| BPF protocol filtering | Implemented and tested |
+| IPv4 address filtering | Implemented and tested |
+| Packet metadata extraction | Implemented and tested |
+| Terminal output | Implemented and tested |
+| CSV metadata logging | Implemented and tested |
+| Protocol statistics | Implemented and tested |
+| Automated packet-analysis unit testing | Complete - 6/6 tests passed |
+| Manual integration testing | Performed |
+| Error handling and input validation | Implemented and tested |
 
 ## 8. Known Limitations
 
 - The current packet analyzer focuses on IPv4 traffic and Ethernet metadata.
 - The interface index may change between system configurations.
 - The application does not decrypt HTTPS traffic.
-- Automated unit tests and additional edge-case tests are pending.
+- Additional automated tests for ARP filtering, CSV writer behaviour and broader capture edge cases remain recommended.
+- Capture initialization failure handling was verified using a simulated exception; testing against an actual Npcap or driver failure remains outstanding.
 
 ## 9. Conclusion
 
-The current implementation demonstrates practical packet capture, protocol identification, metadata extraction, filtering, CSV logging and basic traffic statistics using Python and Scapy.
+The Basic Network Sniffer demonstrates live packet capture, protocol identification, metadata extraction, BPF filtering, CSV logging and protocol statistics using Python and Scapy.
+
+The implementation has been validated through automated packet-analysis tests and manual integration testing. Additional automated regression and edge-case testing may further improve its reliability.

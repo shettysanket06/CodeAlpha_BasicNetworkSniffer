@@ -1,7 +1,7 @@
-﻿# Basic Network Sniffer - Testing Report
+# Basic Network Sniffer - Testing Report
 
 **Project:** Basic Network Sniffer
-**Testing period:** November 11–13, 2026
+**Testing period:** November 11–14, 2026
 **Environment:** Windows 11, Python 3.11.9, Scapy 2.8.0, Npcap
 
 ## 1. Testing Overview
@@ -60,6 +60,18 @@ Additional CSV validation:
 - Verified that two consecutive captures produced five records with one CSV header.
 - Confirmed that CSV logging uses append mode and does not duplicate the header.
 
+### Day 5 CSV Verification
+
+| CSV File | Records Verified | Result |
+|---|---:|---|
+| `day5_arp_filter_test.csv` | 6 ARP records | PASS |
+
+Additional validation:
+
+- Verified that all six captured records were identified as ARP.
+- Confirmed that zero non-ARP records were present in the filtered CSV.
+- A separate Scapy ARP request to the local gateway received one reply. This request was performed after the sniffer capture ended and is not counted in the six captured records.
+
 ## 4. Automated Unit Testing
 
 Automated tests were implemented in `tests/test_sniffer.py` using Python's `unittest` framework.
@@ -106,9 +118,9 @@ The automated payload test verifies that the metadata returned by `process_packe
 
 The following tests remain recommended:
 
-- Dedicated automated tests for ARP filtering.
+- Dedicated automated unit tests for ARP filtering.
 - Additional output-file and directory permission scenarios.
-- Interface availability and capture initialization failure scenarios.
+- Testing against actual Npcap or network-driver initialization failures.
 - Dedicated automated unit tests for CSV writer behaviour.
 - Broader regression testing of all supported capture options.
 
@@ -160,10 +172,51 @@ Two consecutive captures were performed using the same output file:
 
 The test confirmed that the application appends new packet metadata to an existing CSV file without duplicating its header.
 
-## 9. Conclusion
+## 9. Day 5 Final Quality Assurance
+
+Additional manual quality-assurance testing was performed on November 14, 2026.
+
+### ARP Filtering Verification
+
+The application was executed using:
+
+```powershell
+python src/sniffer.py --iface-index 19 --protocol ARP --count 0 --timeout 10 --log-file logs/day5_arp_filter_test.csv
+```
+
+Results:
+
+- Capture filter: `arp`
+- Total packets processed: 6
+- ARP packets: 6
+- Non-ARP packets: 0
+- CSV records: 6
+- All CSV records were identified as ARP.
+
+A separate Scapy ARP request to the local gateway received one reply. This request was sent after the capture session had ended and is not counted in the six captured records.
+
+### Simulated Capture Initialization Failure
+
+The Scapy capture function was temporarily replaced with a controlled test function that raised an `OSError` to simulate a capture initialization failure.
+
+Results:
+
+- Simulated error: `Simulated capture initialization failure`
+- Error displayed by application: Correct
+- Observed exit code: 1
+- Expected exit code: 1
+- Temporary test output file: Removed after testing.
+
+The test verified that the application's exception handler catches a simulated capture initialization failure and terminates with the expected non-zero exit code.
+
+This was a simulated failure and does not constitute testing against an actual Npcap or network-driver failure.
+
+## 10. Conclusion
 
 The Basic Network Sniffer has successfully demonstrated live network packet capture, protocol identification, metadata extraction, protocol and IPv4 filtering, CSV logging and protocol statistics.
 
 Six automated packet-analysis tests passed. Seven error-handling and input-validation scenarios were verified. Additional manual integration tests on November 13, 2026, verified live capture limits, combined filtering, CSV integrity, timeout-based capture and CSV append behaviour.
 
-The application has passed its current functional and initial quality-assurance tests. Additional automated regression and edge-case testing is recommended before final project submission.
+Day 5 quality-assurance checks also verified ARP filtering and the application's response to a simulated capture initialization failure.
+
+The application has passed its current functional and quality-assurance tests. Additional automated regression and edge-case testing is recommended before final project submission.

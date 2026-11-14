@@ -174,14 +174,14 @@ Manual functional and integration testing includes:
 | TCP identification and filtering | Passed |
 | UDP identification and filtering | Passed |
 | ICMP identification and filtering | Passed |
-| ARP identification | Observed successfully |
+| ARP identification and filtering | Passed |
 | Packet-count limit | Passed |
-| CSV metadata logging | Passed |
-| CSV row-count verification | Passed |
+| CSV metadata logging and integrity | Passed |
 | Combined ICMP and IPv4 filtering | Passed |
 | Filtered CSV verification | Passed |
 | Five-second timeout capture | Passed |
 | CSV append behaviour and header handling | Passed |
+| Simulated capture initialization failure handling | Passed |
 | Invalid protocol validation | Passed |
 | Invalid IPv4 validation | Passed |
 | Protocol distribution statistics | Verified |
@@ -191,6 +191,8 @@ Automated unit testing:
 - 6 unit tests passed.
 - TCP, UDP, ICMP, ARP and IGMP packet identification tested.
 - Packet payload privacy tested.
+
+The simulated capture initialization failure test verified the application's exception handling and expected exit code. It was not a test of an actual Npcap or network-driver failure.
 
 Detailed test results are documented in `docs/testing_report.md`.
 
